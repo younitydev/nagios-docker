@@ -1,0 +1,6 @@
+cluster: nagios-cluster 
+service: service-test
+task: nagios-test
+rule: site-event-rule
+verbose: false
+nocolor: true

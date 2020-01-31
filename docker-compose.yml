@@ -9,14 +9,15 @@
 version: '3'
 services:
   nagios:
-    image: jasonrivers/nagios:latest
+    image: "jasonrivers/nagios:latest"         
+    ports: 
+      - "8000:80"
     volumes:
-    - nagiosetc:/opt/nagios/etc
-    - nagiosvar:/opt/nagios/var
-    - customplugins:/opt/Custom-Nagios-Plugins
-    - nagiosgraphvar:/opt/nagiosgraph/var
-    - nagiosgraphetc:/opt/nagiosgraph/etc
-
+      - ./nagiosetc:/opt/nagios/etc
+      - nagiosvar:/opt/nagios/var
+      - customplugins:/opt/Custom-Nagios-Plugins
+      - nagiosgraphvar:/opt/nagiosgraph/var
+      - nagiosgraphetc:/opt/nagiosgraph/etc
 volumes:
     nagiosetc:
     nagiosvar:
