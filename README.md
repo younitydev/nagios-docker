@@ -20,9 +20,11 @@ NagiosGraph configuration lives in /opt/nagiosgraph/etc
 
 > docker-compose up
 
-This are the mount point in the docker-compose.yaml
+These are the mount point in the `docker-compose.yaml`
 
-'''
+```
+# Move into the base directory
+$ cd base
     volumes:
       - ./nagiosetc:/opt/nagios/etc
       - nagiosvar:/opt/nagios/var
@@ -30,11 +32,11 @@ This are the mount point in the docker-compose.yaml
       - nagiosgraphvar:/opt/nagiosgraph/var
       - nagiosgraphetc:/opt/nagiosgraph/etc
 
-'''
+```
 
 ### Push Image to registry
 
-E
+
 
 
 ### Deploy on Fargate Service
