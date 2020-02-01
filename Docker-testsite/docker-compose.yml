@@ -9,15 +9,17 @@
 version: '3'
 services:
   nagios:
-    image: "jasonrivers/nagios:latest"         
+    environment: 
+      - DEBUG    
+    image: "006587054012.dkr.ecr.us-west-2.amazonaws.com/nagios/testsite:latest"         
     ports: 
       - "8000:80"
     volumes:
       - ./nagiosetc:/opt/nagios/etc
-      - nagiosvar:/opt/nagios/var
-      - customplugins:/opt/Custom-Nagios-Plugins
-      - nagiosgraphvar:/opt/nagiosgraph/var
-      - nagiosgraphetc:/opt/nagiosgraph/etc
+      - ./nagiosvar:/opt/nagios/var
+      - ./customplugins:/opt/Custom-Nagios-Plugins
+      - ./nagiosgraphvar:/opt/nagiosgraph/var
+      - ./nagiosgraphetc:/opt/nagiosgraph/etc
 volumes:
     nagiosetc:
     nagiosvar:
