@@ -1,0 +1,8 @@
+DeviceName,model,ipaddress,MacAddress/Code,site
+FW_Sapir,100E,172.17.0.3,00:09:0f:09:64:14,Sapir
+PDU_Sapir,xxxx,172.17.0.202,00:09:0f:09:56:15,Sapir
+UPS_Sapir,xxxx,172.17.0.203,00:09:2f:09:76:16,Sapir
+ISP_1_remote,,212.16.33.1,1688954,Sapir
+ISP_1_local,,212.16.33.2,1688954,Sapir
+ISP_2_remote,,82.17.44.1,1685968,Sapir
+ISP_2_local,,82.17.44.2,1685968,Sapir
