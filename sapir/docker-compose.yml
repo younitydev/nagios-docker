@@ -15,7 +15,7 @@ services:
 
     build: ./build-docker
 
-    image: "006587054012.dkr.ecr.us-west-2.amazonaws.com/nagios/site1:latest"
+    image: "jasonrivers/nagios:latest"
 
     ports:
       - "8000:80"
