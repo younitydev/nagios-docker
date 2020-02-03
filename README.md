@@ -1,4 +1,4 @@
-# Nagios Docker images for ECS Fargate provided Services.
+# Nagios Docker for AWS ECS Fargate.
 
 ## General comments on configuration.
 
@@ -6,10 +6,11 @@ The test environment for this project consist of 2 services using Fargate that w
 
 | Site Name | Conf. Provided   | Auto Assigned IP* |
 |-----------|------------------|:----------------:|
-| testsite  | VennChauncey682  |  |
-| sapir     | config from CSV  |  |
+| testsite  | VennChauncey682  | 35.173.49.231 |
+| sapir     | config from CSV  | 54.237.161.76 |
 
-\*These IPs are ephemeral and change once the container is restarted
+\*These IPs are ephemeral and change once the container is restarted.
+\* Usr: nagiosadmin Pass: Ask administrator
 
 ## Building Docker images for Nagios
 
@@ -17,7 +18,7 @@ These are the steps we need to go through in order to deploy a new service in a 
 
 1- Local development using dockers and/or docker-compose.
 
-2- Build the Docker Image.
+2- Build the Docker image.
 
 3- Push the Image to the registry.
 
@@ -40,16 +41,6 @@ These are the steps we need to go through in order to deploy a new service in a 
 - Nagios Configuration lives in /opt/nagios/etc
 - NagiosGraph configuration lives in /opt/nagiosgraph/etc
 - Custom-Nagios-Plugins configuration lives in /opt/customplugins
-
-```
-  volumes:
-    - ./nagiosetc:/opt/nagios/etc
-    - ./nagiosvar:/opt/nagios/var
-    - ./customplugins:/opt/Custom-Nagios-Plugins
-    - ./nagiosgraphvar:/opt/nagiosgraph/var
-    - ./nagiosgraphetc:/opt/nagiosgraph/etc
-
-```
 
 
 ### Run the image locally
@@ -77,13 +68,13 @@ Run a bash terminal
 
 These are the configuration folders mapped to the container's mount points in the `docker-compose.yaml`
 
+
 ```
   volumes:
     - ./nagiosetc:/opt/nagios/etc
     - ./nagiosvar:/opt/nagios/var
     - ./customplugins:/opt/Custom-Nagios-Plugins
-    - ./nagiosgraphvar:/opt/nagiosgraph/var
-    - ./nagiosgraphetc:/opt/nagiosgraph/etc
+    - ./nagioslibexec:/opt/nagios/libexec
 
 ```
 
@@ -108,7 +99,7 @@ Ensure you have installed the latest version of the AWS CLI and Docker. For more
   Retrieve the login command to use to authenticate your Docker client to your registry.
   Use the AWS CLI:
 
-> $(aws ecr get-login --no-include-email --region us-east-1)
+> $(aws --profile duckeradmin ecr get-login --no-include-email --region us-east-1)
 
 Note: If you receive an "Unknown options: --no-include-email" error when using the AWS CLI, ensure that you have the latest version installed. Learn more
 
@@ -124,27 +115,29 @@ Use AWS Tools for PowerShell:
 
 ### Build the image
 
-Go build-docker folder to build your Docker image.You can skip this step if your image is already built:
+Go to the build-docker folder. You can skip this step if your image is already built:
 
 > cd build-docker
 
-Midifiy the name of the target image in the building script and execute:
+Modify the name of the target image in the building script and execute:
 
 > ./build.sh
 
+Be aware that configurations to be build reside in the overlay folder.  
+
 Test the new image by going to:
 
-> http://0.0.0.0:8000
+> http://0.0.0.0:8080
 
-Finally stop the image with:
+Finally stop the container with:
 
 > docker stop <CONTAINER-ID>
 
 ## 3 - Push the Image to the registry.
 
-After the build completes, tag your image so you can push the image to this repository:
+After the build completes, tag your image so you can push the image to the right repository:
 
-> docker tag nagios/site1:latest 558878658229.dkr.ecr.us-east-1.amazonaws.com/nagios/site1:latest
+> docker tag nagios-site1:latest 558878658229.dkr.ecr.us-east-1.amazonaws.com/nagios/site1:latest
 
 Run the following command to push this image to your newly created AWS repository:
 
@@ -157,7 +150,7 @@ You need to creating a new task definition that pull the version you want from t
 
 > nagios/site1:latest 558878658229.dkr.ecr.us-east-1.amazonaws.com/nagios/site1:latest
 
-Go to the Task Definition menu in the ECS console and create a new task based on the teplate.
+Go to the Task Definition menu in the ECS console and create a new task based on the template.
 
 
 ## 5 - Create a service and include the target task definition.
