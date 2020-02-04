@@ -11,7 +11,7 @@ services:
   nagios:
     environment:
       - ENV = DEV
-      - SITE = testsite
+      - SITE = SAPIR 
 
     build: ./build-docker
 
