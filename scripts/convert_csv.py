@@ -32,8 +32,10 @@ def get_hosts_inlayer(layer):
 def get_floor_ap(s):
     st = s.split(".")
     if len(st) > 1 :
-        #print(st[1])
-        return st[1]
+        if int(st[1]) < 10:
+            return '0'+st[1]
+        else:
+            return st[1]
     else:
         return "NA"
 
@@ -65,7 +67,7 @@ def get_floor_si(s):
     else:
         return ""
 
-site = "sapir"
+site = "Sapir"
 hosts_list = []
 
 # Parse AP list
@@ -92,10 +94,12 @@ with open('csv/sw.csv') as csvData:
         alias = line[1] # MAC
         ip_address = line[2]
         if get_layer_sw(name) != 'BB':
-            layer = 'IT'
-        else: layer = get_layer_sw(name)
+            layer = 'Floor'
+            group = line[5] + '-' + layer + '-' + get_floor_sw(name)
+        else:
+            layer = get_layer_sw(name)
+            group = line[5] + '-' + layer   #Zone
         use = layer +'-host'
-        group = line[5] + '-' + layer  + '-' + get_floor_sw(name) #Zone
         new_host = host(use, name, alias, ip_address, group, layer)
         hosts_list.append(new_host)
 
@@ -108,9 +112,17 @@ with open('csv/si.csv') as csvData:
         name = line[0]
         alias = line[3] # MAC
         ip_address = line[2]
-        layer = 'ISP' #get_layer_si(name)
+        if get_layer_si(name) == 'FW':
+            layer = 'BB'
+            group = line[4] + '-' + layer
+        elif get_layer_si(name) == 'ISP':
+            layer = 'ISP'
+            group = line[4] + '-' + layer
+        else:
+            layer = 'IT' #get_layer_si(name)
+            group = line[4] + '-' + layer + get_floor_si(name)
+
         use = layer +'-host'
-        group = line[4] + '-' + layer + get_floor_si(name) #Zone
         new_host = host(use, name, alias, ip_address, group, layer)
         hosts_list.append(new_host)
 
@@ -118,8 +130,10 @@ print("####  Host count in si list is: " + str(new_host.count))
 
 ## New configuration file
 cfg = open(site +'.cfg', "w")
+
 # Create hosts
 for host in hosts_list:
+
     with open('templates/host.cfg', 'r') as file:
         data = file.read()
 
@@ -155,7 +169,7 @@ for host in hosts_list:
 used_groups = []
 
 for host in hosts_list:
-
+    print (host.name, host.group)
     if host.group not in used_groups:
         used_groups.append(host.group)
         members = get_members_ingroup(host.group)
@@ -166,5 +180,15 @@ for host in hosts_list:
             data=data.replace('${alias}', host.group)
             data=data.replace('${members}', members)
         cfg.write(data)
+
+
+# Create internet layer
+
+
+with open('templates/inet.cfg', 'r') as file:
+    data = file.read()
+data=data.replace('{Site_Name}', site)
+
+cfg.write(data)
 
 cfg.close()

@@ -12,9 +12,9 @@ The test environment for this project consist of 2 services using Fargate that w
 \*These IPs are ephemeral and change once the container is restarted.
 \* Usr: nagiosadmin Pass: Ask administrator
 
-## Building Docker images for Nagios
+## Deploy images as a Fargate Service:
 
-These are the steps we need to go through in order to deploy a new service in a ECS cluster using Fargate for provisioning the hosts.
+These are the steps we need to go through in order to deploy a new service in a ECS cluster using Fargate.
 
 1- Local development using dockers and/or docker-compose.
 
@@ -26,8 +26,11 @@ These are the steps we need to go through in order to deploy a new service in a 
 
 5- Create a service and include the target task definition.
 
+6- Convert .csv files to .cfg for Nagios.
 
 ## 1 - Local development using dockers and/or docker-Compose
+
+All you need is docker and/or docker-composed installed and a set .cfg files to create a new service in addtion to this repository.
 
 
 ### Base image
@@ -36,17 +39,18 @@ These are the steps we need to go through in order to deploy a new service in a 
 - Nagios Core 4.4.5 running on Ubuntu 16.04 LTS with NagiosGraph & NRPE
 
 
-### Configurations
+### Configurations Mapped in the base image
 
 - Nagios Configuration lives in /opt/nagios/etc
 - NagiosGraph configuration lives in /opt/nagiosgraph/etc
 - Custom-Nagios-Plugins configuration lives in /opt/customplugins
 
 
+
 ### Run the image locally
 
 
-> docker run -d --name nagios-site -p 0.0.0.0:8080:80 nagios/site:latest
+> docker run -d --name nagios-site -p 0.0.0.0:8080:80 558878658229.dkr.ecr.us-east-1.amazonaws.com/nagios/testsite:latest
 
 The in a web browser go to:
 
@@ -85,12 +89,12 @@ Run the stack configured in docker-compose.yaml
 > http://0.0.0.0:8000
 
 
-WARNING: In all cases, in order for the changes made to persisted on a container once restarted you have to push the new image the registry under the name used by the task definition.
+WARNING: In all cases, in order for the changes made to persist inside all instances of a container you have to push the new image the registry.
 
 
 ## 2 - Build the Docker Image
 
-First verify you have the required software and access to build and push the image to ECR.
+First verify you have the required access to build and push the image to ECR.
 
 ### macOS / Linux
 
@@ -158,3 +162,13 @@ Go to the Task Definition menu in the ECS console and create a new task based on
 You can do that by creating a new service that task definition you've created before.
 
 Go to the Cluster menu in the ECS console and create a new fargate service for the task internface, and select auto assign Internet gateway to be able to pull the image. Go to the task definition running inside the server to get the public IP address to access the running service.
+
+## 6 - Convert .csv files to .cfg for Nagios.
+
+This a python script that uses the three .csv samples provided to create a .cfg. I used the provided samples to create the templates.
+
+To create from a new .cfg file copy the files, without headers, to ap.csv, sw.csv and si.csv in the csv directory.
+
+Change the site name in the script and run it, this will create the new configuration file:
+
+>  python3 convert_csv.py

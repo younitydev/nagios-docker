@@ -29,7 +29,6 @@
 20:58:69:05:1D:00,ap.21.a1,Online,172.16.0.90,0,0,0,0,0,R610,6 (20MHz),44 (40MHz),Sapir,default,Up-to-date,1/26/2020 10:04,WG_Def_21,WG_Def_21
 20:58:69:05:1F:50,ap.22.a4,Online,172.16.0.27,0,0,0,0,0,R610,6 (20MHz),44 (40MHz),Sapir,default,Up-to-date,1/26/2020 10:04,WG_Def_22,WG_Def_22
 20:58:69:05:1F:D0,ap.17.a4,Online,172.16.0.54,13693,0,0,0,0,R610,11 (20MHz),44 (40MHz),Sapir,default,Up-to-date,1/26/2020 10:04,WG_Def_17,WG_Def_17
-20:58:69:05:20:40,RuckusAP,Offline,172.16.0.43,,0,0,0,0,R610,11 (20MHz),64 (80MHz),Sapir,default,New Configuration,7/1/2019 8:52,,
 20:58:69:05:22:40,ap.20.a4,Online,172.16.0.32,0,0,0,0,0,R610,11 (20MHz),44 (40MHz),Sapir,default,Up-to-date,1/26/2020 10:04,WG_Def_20,WG_Def_20
 20:58:69:05:22:B0,ap.20.a1,Online,172.16.0.28,2304,0,0,0,0,R610,1 (20MHz),36 (40MHz),Sapir,default,Up-to-date,1/26/2020 10:04,WG_Def_20,WG_Def_20
 20:58:69:05:24:40,ap.23.a4,Online,172.16.0.98,0,0,0,0,0,R610,1 (20MHz),36 (40MHz),Sapir,default,Up-to-date,1/26/2020 10:04,WG_Def_23,WG_Def_23
