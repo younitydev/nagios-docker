@@ -26,7 +26,7 @@ These are the steps we need to go through in order to deploy a new service in a 
 
 5- Create a service and include the target task definition.
 
-6- Convert .csv files to .cfg for Nagios.
+6- Optionally: Convert .csv files to .cfg for Nagios.
 
 ## 1 - Local development using dockers and/or docker-Compose
 
