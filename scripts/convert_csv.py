@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 import csv
 
@@ -32,12 +31,27 @@ def get_hosts_inlayer(layer):
 def get_floor_ap(s):
     st = s.split(".")
     if len(st) > 1 :
-        if int(st[1]) < 10:
+        if int(st[1])< 0:
+            return st[1]
+        elif int(st[1]) < 10 and int(st[1]) > 0:
             return '0'+st[1]
         else:
             return st[1]
     else:
+        return "NA"  # Change for exit error
+
+def get_name_sw(s):
+    st = s.split(" ")
+
+    if len(st) > 1 :
+        return st[0]
+        # if s[2] == "-":
+        #     return s[0:5]
+        # else:
+        #     return s[0:4]
+    else:
         return "NA"
+
 
 def get_layer_sw(s):
     if len(s) > 1 :
@@ -47,7 +61,10 @@ def get_layer_sw(s):
 
 def get_floor_sw(s):
     if len(s) > 3 :
-        return s[2]+s[3]
+        if s[2] == "-":
+            return s[2]+s[3]+s[4]
+        else:
+            return s[2]+s[3]
     else:
         return "NA"
 
@@ -72,6 +89,7 @@ hosts_list = []
 
 # Parse AP list
 with open('csv/ap.csv') as csvData:
+    next(csvData)
     file = csv.reader(csvData, delimiter=',',quoting= csv.QUOTE_ALL, quotechar = '"')
     for line in file:
         name = line[1]
@@ -88,9 +106,10 @@ print("####  Host count after ap list is: " + str(new_host.count))
 
 # Parse SW list
 with open('csv/sw.csv') as csvData:
+    next(csvData)
     file = csv.reader(csvData, delimiter=',',quoting= csv.QUOTE_ALL, quotechar = '"')
     for line in file:
-        name = line[0]
+        name = get_name_sw(line[0])
         alias = line[1] # MAC
         ip_address = line[2]
         if get_layer_sw(name) != 'BB':
@@ -107,6 +126,7 @@ print("####  Host count after sw list is: " + str(new_host.count))
 
 # Parse Site Inventory list
 with open('csv/si.csv') as csvData:
+    next(csvData)
     file = csv.reader(csvData, delimiter=',',quoting= csv.QUOTE_ALL, quotechar = '"')
     for line in file:
         name = line[0]
