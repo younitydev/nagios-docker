@@ -1,17 +1,17 @@
 ---
 
-# This compose file acts as an example on using docker volumes for nagios
-# config_site1uration. As nagios config_site1urations are different for each site they are
-# not concidered part of the container image. The best way to deal with the
-# config_site1urations is to store them in a volume allowing the user to upgrade the
-# image without the need to extract the site config_site1uration from the container.
+# This composer file acts as an example on using docker volumes for nagios
+# configuration. As nagios configurations are different for each site they are
+# not considered part of the container image. The best way to deal with the
+# configurations is to store them in a volume allowing the user to upgrade the
+# image without the need to extract the site configuration from the container.
 
 version: '3'
 services:
   nagios:
     environment:
       - ENV = DEV
-      - SITE = SAPIR 
+      - SITE = CLIENT
 
     build: ./build-docker
 

@@ -84,7 +84,7 @@ def get_floor_si(s):
     else:
         return ""
 
-site = "Sapir"
+site = "Client001"
 hosts_list = []
 
 # Parse AP list

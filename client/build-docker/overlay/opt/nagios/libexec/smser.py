@@ -6,7 +6,7 @@ import sys
 from urllib import quote
 
 
-AuthToken = base64.b64encode('AC5a62756ca190814da7e2c8bd3926d253:2d847387f8bfb1db0690936c05cb0956')
+AuthToken = base64.b64encode('put-your-token-here')
 From = '%2B' + '972524735987'
 To = '%2B' + '972544765150'
 sms_newline_encodig = "%0a"

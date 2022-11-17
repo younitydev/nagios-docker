@@ -4,10 +4,10 @@
 
 The test environment for this project consist of 2 services using Fargate that were build and deployed in the ECS cluster using the instructions in the next section. The table below describes the configuration used and current public IP for each site's nagios container.
 
-| Site Name | Conf. Provided   | Auto Assigned IP* |
-|-----------|------------------|:----------------:|
-| testsite  | VennChauncey682  | 35.173.49.231 |
-| sapir     | config from CSV  | 54.237.161.76 |
+| Site Name | Conf. Provided  | Auto Assigned IP* |
+|-----------|-----------------|:-----------------:|
+| testsite  | Vennice         |   35.xxx.49.231   |
+| Client001     | config from CSV |   54.xxx.161.76   |
 
 \*These IPs are ephemeral and change once the container is restarted.
 \* Usr: nagiosadmin Pass: Ask administrator

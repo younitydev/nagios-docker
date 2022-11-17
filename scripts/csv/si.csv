@@ -1,7 +1,7 @@
-FW_Sapir,300E,172.16.0.1,,Sapir
-PDU_Sapir,,172.17.0.127,,Sapir
-UPS_Sapir,,172.17.0.122,,Sapir
-ISP_1_remote_Cellcom,,82.166.23.206,,Sapir
-ISP_1_local_Cellcom,,82.166.23.205,,Sapir
-ISP_2_remote_Partner,,212.199.193.101,,Sapir
-ISP_2_local_Partner,,212.199.193.102,,Sapir
+FW_Client001,300E,172.16.0.1,,Client001
+PDU_Client001,,172.17.0.127,,Client001
+UPS_Client001,,172.17.0.122,,Client001
+ISP_1_remote_Cellcom,,82.166.23.206,,Client001
+ISP_1_local_Cellcom,,82.166.23.205,,Client001
+ISP_2_remote_Partner,,212.199.193.101,,Client001
+ISP_2_local_Partner,,212.199.193.102,,Client001

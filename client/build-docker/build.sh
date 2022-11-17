@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-DOCKER_RUN_IMAGE=nagios-sapir
+DOCKER_RUN_IMAGE=nagios-client
 
 
 docker build -t "${DOCKER_RUN_IMAGE}" .
